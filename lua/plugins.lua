@@ -22,6 +22,12 @@ return require('packer').startup(function(use)
 	use 'ray-x/lsp_signature.nvim'
 	use 'neovim/nvim-lspconfig'
 
+	use {
+		'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate',
+    }
+
+	use { "ellisonleao/gruvbox.nvim" }
 
 end)
 
