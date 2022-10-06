@@ -17,3 +17,6 @@ keymap.set('', '<C-l>', '<C-w>l')
 keymap.set('i', '<leader>w', '<Esc>:write<CR>')
 keymap.set('n', '<leader>w', ':write<CR>')
 
+
+-- Select all
+keymap.set('n', '<C-a>', 'gg<S-v>G')
