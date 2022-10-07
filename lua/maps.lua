@@ -2,12 +2,14 @@ local keymap = vim.keymap
 
 keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>')
 
+-- Delete a word backwards
+keymap.set('n', 'dw', 'vb"_d')
+
 --keymap.set('n', 'ss', ':split<Return><C-w>w')
 --keymap.set('n', 'sv', ':vsplit<Return><C-w>w')
 
 keymap.set('i', 'jj', '<Esc>')
 keymap.set('i', 'kk', '<Esc>')
-keymap.set('i', 'll', '<Esc>')
 
 keymap.set('', '<C-h>', '<C-w>h')
 keymap.set('', '<C-j>', '<C-w>j')

@@ -11,6 +11,7 @@ return require('packer').startup(function(use)
 	use 'kyazdani42/nvim-tree.lua'
 
 	use 'nvim-telescope/telescope.nvim'
+	use 'nvim-telescope/telescope-file-browser.nvim'
 
 	use 'ggandor/lightspeed.nvim'
 
@@ -35,6 +36,8 @@ return require('packer').startup(function(use)
   use 'windwp/nvim-ts-autotag'
 
 	use 'numToStr/Comment.nvim'
+
+	use ({ 'projekt0n/github-nvim-theme' })
 
 end)
 

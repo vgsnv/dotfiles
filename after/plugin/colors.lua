@@ -1,4 +1,4 @@
 require('nightfox').setup({
 })
 
-vim.cmd("colorscheme dayfox")
+--vim.cmd("colorscheme dayfox")
