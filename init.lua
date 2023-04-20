@@ -1,6 +1,2 @@
-require('base')
-require('plugins')
-require('maps')
-
-
-
+require('vgsnv')
+print("hello")
