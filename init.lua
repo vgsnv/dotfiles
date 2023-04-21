@@ -1,2 +1,2 @@
 require('vgsnv')
-print("hello")
+print("INIT")

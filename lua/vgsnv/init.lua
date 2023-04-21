@@ -1,2 +1,3 @@
+require("vgsnv.set")
 require("vgsnv.remap")
-print('Hello from vgsnv!')
+print('load vgsnv')
