@@ -1,5 +1,4 @@
-require('rose-pine').setup({
-	disable_italics = true,
+require('rose-pine').colorscheme({
+    disable_italics = true
 })
 
-vim.cmd('colorscheme rose-pine')
