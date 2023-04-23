@@ -49,6 +49,18 @@ return require('packer').startup(function(use)
         requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"}
     }
 
+    use {
+        "windwp/nvim-autopairs",
+        config = function()
+            require("nvim-autopairs").setup {}
+        end
+    }
+
+    use 'jose-elias-alvarez/typescript.nvim'
+
+    use 'norcalli/nvim-colorizer.lua'
+    use 'windwp/nvim-ts-autotag'
+
     use('neovim/nvim-lspconfig')
     use('jose-elias-alvarez/null-ls.nvim')
     use('MunifTanjim/prettier.nvim')
