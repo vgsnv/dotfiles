@@ -1,6 +1,4 @@
-print('load set')
 -- vim.cmd("autocmd!")
-
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
@@ -18,7 +16,7 @@ vim.opt.laststatus = 2
 vim.opt.expandtab = false
 vim.opt.scrolloff = 10
 vim.opt.shell = 'fish'
-vim.opt.backupskip = { '/tmp/*', '/private/tmp/*' }
+vim.opt.backupskip = {'/tmp/*', '/private/tmp/*'}
 vim.opt.inccommand = 'split'
 vim.opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
 vim.opt.smarttab = true
@@ -29,21 +27,17 @@ vim.opt.swapfile = false
 vim.opt.termguicolors = true
 vim.opt.incsearch = true
 vim.opt.wrap = false -- No Wrap lines
-vim.opt.backspace = { 'start', 'eol', 'indent' }
-vim.opt.path:append { '**' } -- Finding files - Search down into subfolders
-vim.opt.wildignore:append { '*/node_modules/*' }
+vim.opt.backspace = {'start', 'eol', 'indent'}
+vim.opt.path:append{'**'} -- Finding files - Search down into subfolders
+vim.opt.wildignore:append{'*/node_modules/*'}
 
 -- Turn off paste mode when leaving insert
 vim.api.nvim_create_autocmd("InsertLeave", {
-  pattern = '*',
-  command = "set nopaste"
+    pattern = '*',
+    command = "set nopaste"
 })
 -- Add asterisks in block comments
-vim.opt.formatoptions:append { 'r' }
-
-
-
- 
+vim.opt.formatoptions:append{'r'}
 
 vim.opt.cursorline = true
 vim.opt.winblend = 0

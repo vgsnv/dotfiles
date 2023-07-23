@@ -13,7 +13,6 @@ local fb_actions = require"telescope".extensions.file_browser.actions
 
 telescope.setup {
     defaults = {
-        initial_mode = "normal",
         preview = false,
         file_ignore_patterns = {"node_modules"},
         layout_config = {
@@ -62,14 +61,22 @@ vim.keymap.set('n', ';r', function()
     builtin.live_grep()
 end)
 
-vim.keymap.set('n', ';r', function()
-  builtin.live_grep()
+vim.keymap.set('n', '<C-e>', function()
+    builtin.oldfiles({
+        initial_mode = "normal"
+    })
 end)
 
+vim.keymap.set('n', 'gd', function()
+    builtin.lsp_definitions({
+        initial_mode = "normal",
+        show_line = false
+    })
+end)
 
-vim.keymap.set('n', '<C-e>', builtin.oldfiles, {})
-vim.keymap.set('n', 'gh', function()
+vim.keymap.set('n', 'gr', function()
     builtin.lsp_references({
+        initial_mode = "normal",
         show_line = false
     })
 end)

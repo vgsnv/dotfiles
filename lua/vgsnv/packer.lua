@@ -15,10 +15,49 @@ return require('packer').startup(function(use)
         requires = {{'nvim-lua/plenary.nvim'}}
     }
 
+    -- theme
     use {
         'rose-pine/neovim',
         as = 'rose-pine'
     }
+    use {
+        "catppuccin/nvim",
+        as = "catppuccin"
+    }
+
+    use({
+        'projekt0n/github-nvim-theme',
+        config = function()
+            require('github-theme').setup({
+                options = {
+                    styles = {
+                        comments = 'bold', -- Value is any valid attr-list value `:help attr-list`
+                        functions = 'bold',
+                        keywords = 'bold',
+                        variables = 'bold',
+                        conditionals = 'bold',
+                        constants = 'bold',
+                        numbers = 'bold',
+                        operators = 'bold',
+                        strings = 'bold',
+                        types = 'bold'
+                    }
+                }
+            })
+
+            vim.cmd('colorscheme github_dark')
+        end
+    })
+
+    use {
+        'svrana/neosolarized.nvim',
+        requires = {'tjdevries/colorbuddy.nvim'}
+    }
+
+    -----------
+    use 'christoomey/vim-tmux-navigator'
+
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
 
     use({
         "nvim-treesitter/nvim-treesitter",
@@ -64,5 +103,14 @@ return require('packer').startup(function(use)
     use('neovim/nvim-lspconfig')
     use('jose-elias-alvarez/null-ls.nvim')
     use('MunifTanjim/prettier.nvim')
+
+    use 'nvim-tree/nvim-web-devicons'
+
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
 
 end)

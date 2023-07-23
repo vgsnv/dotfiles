@@ -24,9 +24,9 @@ lsp.on_attach(function(client, bufnr)
         remap = false
     }
 
-    vim.keymap.set("n", "gd", function()
-        vim.lsp.buf.definition()
-    end, opts)
+    -- vim.keymap.set("n", "gd", function()
+    --     vim.lsp.buf.definition()
+    -- end, opts)
     vim.keymap.set("n", "K", function()
         vim.lsp.buf.hover()
     end, opts)
@@ -45,7 +45,7 @@ lsp.on_attach(function(client, bufnr)
 
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
 
-    vim.keymap.set("n", "<leader>vca", function()
+    vim.keymap.set("n", "<leader>ca", function()
         vim.lsp.buf.code_action()
     end, opts)
     vim.keymap.set("n", "<leader>vrr", function()
@@ -70,8 +70,9 @@ local event = "BufWritePre" -- or "BufWritePost"
 local async = event == "BufWritePost"
 
 null_ls.setup({
-    sources = { -- Replace these with the tools you want to install
-    null_ls.builtins.formatting.prettier, null_ls.builtins.formatting.stylua,
+    sources = { 
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.stylua,
     require("typescript.extensions.null-ls.code-actions")}
 })
 
