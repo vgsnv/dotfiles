@@ -11,6 +11,7 @@ require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
 lsp.format_on_save({
     format_opts = {
+        async = false,
         timeout_ms = 10000
     },
     servers = {
@@ -71,7 +72,7 @@ local async = event == "BufWritePost"
 
 null_ls.setup({
     sources = { 
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettierd,
     null_ls.builtins.formatting.stylua,
     require("typescript.extensions.null-ls.code-actions")}
 })

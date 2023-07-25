@@ -12,8 +12,11 @@ keymap.set('i', 'kk', '<Esc>')
 keymap.set('i', '<leader>w', '<esc>:w<cr>')
 keymap.set('i', '<C-s>', '<esc>:w<cr>')
 keymap.set('n', '<leader>w', ':w<cr>')
+keymap.set("n", "<leader>re", ":TypescriptRemoveUnused<CR> <BAR> :TypescriptOrganizeImports<CR>")
 
 
+-- Select all
+keymap.set('n', '<C-a>', 'gg<S-v>G')
 
 -- Split window
 keymap.set('n', '<leader>ss', ':split<Return><C-w>w')

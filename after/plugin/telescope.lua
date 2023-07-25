@@ -68,23 +68,19 @@ vim.keymap.set('n', '<C-e>', function()
 end)
 
 vim.keymap.set('n', 'gd', function()
-    builtin.lsp_definitions({
-        initial_mode = "normal",
-        show_line = false
-    })
-end)
-
-vim.keymap.set('n', 'gr', function()
     builtin.lsp_references({
         initial_mode = "normal",
         show_line = false
     })
 end)
 
-vim.api.nvim_set_keymap("n", "<Leader>fr", ":Telescope oldfiles<CR>", {
-    noremap = true,
-    silent = true
-})
+vim.keymap.set('n', 'gr', function()
+    builtin.treesitter({
+        initial_mode = "normal",
+        show_line = false
+    })
+end)
+
 
 vim.keymap.set("n", "sf", function()
     telescope.extensions.file_browser.file_browser({
@@ -95,6 +91,7 @@ vim.keymap.set("n", "sf", function()
         grouped = true,
         previewer = false,
         initial_mode = "normal",
+
         layout_config = {
             height = 40
         }

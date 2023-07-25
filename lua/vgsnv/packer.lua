@@ -20,6 +20,7 @@ return require('packer').startup(function(use)
         'rose-pine/neovim',
         as = 'rose-pine'
     }
+
     use {
         "catppuccin/nvim",
         as = "catppuccin"
@@ -45,19 +46,17 @@ return require('packer').startup(function(use)
                 }
             })
 
-            vim.cmd('colorscheme github_dark')
         end
     })
 
-    use {
-        'svrana/neosolarized.nvim',
-        requires = {'tjdevries/colorbuddy.nvim'}
-    }
-
+    use({
+        "neanias/everforest-nvim",
+        -- Optional; default configuration will be used if setup isn't called.
+        config = function()
+            require("everforest").setup()
+        end
+    })
     -----------
-    use 'christoomey/vim-tmux-navigator'
-
-    use 'JoosepAlviste/nvim-ts-context-commentstring'
 
     use({
         "nvim-treesitter/nvim-treesitter",
@@ -97,7 +96,6 @@ return require('packer').startup(function(use)
 
     use 'jose-elias-alvarez/typescript.nvim'
 
-    use 'norcalli/nvim-colorizer.lua'
     use 'windwp/nvim-ts-autotag'
 
     use('neovim/nvim-lspconfig')
@@ -105,12 +103,5 @@ return require('packer').startup(function(use)
     use('MunifTanjim/prettier.nvim')
 
     use 'nvim-tree/nvim-web-devicons'
-
-    use {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end
-    }
 
 end)

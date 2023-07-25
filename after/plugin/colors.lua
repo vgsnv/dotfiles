@@ -1,8 +1,9 @@
 -- Example config in Lua
-require('github-theme').setup({
+-- require('rose-pine').setup({
+-- 	variant = 'dawn'
+-- })
 
 
-
-})
-
--- vim.cmd('colorscheme github_light')
+-- vim.cmd('colorscheme rose-pine')
+vim.cmd('colorscheme github_light')
+-- vim.cmd('colorscheme catppuccin-latte')
