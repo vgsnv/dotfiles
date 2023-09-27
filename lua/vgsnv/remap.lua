@@ -7,13 +7,25 @@ keymap.set("n", "<leader>pv", vim.cmd.Ex)
 keymap.set('n', 'dw', 'daw')
 
 
+--:map <ScrollWheelUp> <C-B>
+--:map <ScrollWheelDown> <C-F>
+--keymap.set('i', '<ScrollWheelUp>', '<C-B>')
+--keymap.set('i', '<ScrollWheelDown>', '<C-F>')
+--keymap.set('n', '<ScrollWheelUp>', '<C-B>')
+--keymap.set('n', '<ScrollWheelUp>', '<C-F>')
+
 keymap.set('i', 'jj', '<Esc>')
 keymap.set('i', 'kk', '<Esc>')
+keymap.set('i', ';w', '<esc>:w<cr>')
+keymap.set('n', ';w', ':w<cr>')
 keymap.set('i', '<leader>w', '<esc>:w<cr>')
-keymap.set('i', '<C-s>', '<esc>:w<cr>')
 keymap.set('n', '<leader>w', ':w<cr>')
+keymap.set('i', '<C-s>', '<esc>:w<cr>')
+keymap.set('n', '<C-s>', ':w<cr>')
 keymap.set("n", "<leader>re", ":TypescriptRemoveUnused<CR> <BAR> :TypescriptOrganizeImports<CR>")
 
+keymap.set('i', ';re', '<esc>:TypescriptRemoveUnused<CR> <BAR> :TypescriptOrganizeImports<CR>')
+keymap.set('n', ';re', ':TypescriptRemoveUnused<CR> <BAR> :TypescriptOrganizeImports<CR>')
 
 -- Select all
 keymap.set('n', '<C-a>', 'gg<S-v>G')

@@ -86,7 +86,7 @@ cmp.setup({
     },
 
     completion = {
-        autocomplete = false,
+        -- autocomplete = false,
         completeopt = "menu,menuone"
     },
 

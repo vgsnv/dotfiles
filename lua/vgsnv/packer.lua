@@ -15,11 +15,17 @@ return require('packer').startup(function(use)
         requires = {{'nvim-lua/plenary.nvim'}}
     }
 
+    use {"smartpde/telescope-recent-files"}
+
+    use {"tpope/vim-fugitive"}
+
     -- theme
     use {
         'rose-pine/neovim',
         as = 'rose-pine'
     }
+
+		use 'karb94/neoscroll.nvim'
 
     use {
         "catppuccin/nvim",

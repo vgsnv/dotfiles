@@ -17,27 +17,38 @@ telescope.setup {
         file_ignore_patterns = {"node_modules"},
         layout_config = {
             horizontal = {
-                height = 0.5,
-                preview_cutoff = 120,
-                prompt_position = "bottom",
-                width = 0.5
+                height = 0.77,
+                width = 0.64,
+                preview_cutoff = 140,
+                prompt_position = "bottom"
             }
         }
     },
+
+    pickers = {
+        lsp_references = {
+            preview = true,
+            layout_config = {
+                horizontal = {
+									height = 0.77,
+									width = 0.64,
+									preview_cutoff = 120,
+                }
+            }
+        }
+    },
+
     extensions = {
         file_browser = {
             theme = "dropdown",
-            -- disables netrw and use telescope-file-browser in its place
             hijack_netrw = true,
             mappings = {
-                -- your custom insert mode mappings
                 ["i"] = {
                     ["<C-w>"] = function()
                         vim.cmd('normal vbd')
                     end
                 },
                 ["n"] = {
-                    -- your custom normal mode mappings
                     ["N"] = fb_actions.create,
                     ["h"] = fb_actions.goto_parent_dir,
                     ["/"] = function()
@@ -52,18 +63,31 @@ telescope.setup {
 builtin = require('telescope.builtin')
 
 telescope.load_extension("file_browser")
+telescope.load_extension("recent_files")
 
 vim.keymap.set('n', 'ff', function()
     builtin.find_files()
 end)
 
 vim.keymap.set('n', ';r', function()
-    builtin.live_grep()
+    builtin.live_grep({
+        only_cwd = true,
+        preview = true,
+        layout_config = {
+            horizontal = {
+                height = 0.77,
+                width = 0.64,
+                prompt_position = "bottom",
+            }
+        }
+    })
 end)
 
-vim.keymap.set('n', '<C-e>', function()
-    builtin.oldfiles({
-        initial_mode = "normal"
+vim.keymap.set("n", "<C-e>", function()
+    telescope.extensions.recent_files.pick({
+        noremap = true,
+        silent = true,
+        only_cwd = true
     })
 end)
 
@@ -80,7 +104,6 @@ vim.keymap.set('n', 'gr', function()
         show_line = false
     })
 end)
-
 
 vim.keymap.set("n", "sf", function()
     telescope.extensions.file_browser.file_browser({

@@ -96,7 +96,7 @@ _G.packer_plugins = {
     url = "https://github.com/neanias/everforest-nvim"
   },
   ["github-nvim-theme"] = {
-    config = { "\27LJ\2\nõ\1\0\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\4\0005\4\3\0=\4\5\3=\3\a\2B\0\2\1K\0\1\0\foptions\1\0\0\vstyles\1\0\0\1\0\n\14constants\tbold\fstrings\tbold\14operators\tbold\fnumbers\tbold\17conditionals\tbold\14variables\tbold\rkeywords\tbold\14functions\tbold\rcomments\tbold\ntypes\tbold\nsetup\17github-theme\frequire\0" },
+    config = { "\27LJ\2\nõ\1\0\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\4\0005\4\3\0=\4\5\3=\3\a\2B\0\2\1K\0\1\0\foptions\1\0\0\vstyles\1\0\0\1\0\n\14operators\tbold\fnumbers\tbold\17conditionals\tbold\14variables\tbold\rkeywords\tbold\14functions\tbold\ntypes\tbold\rcomments\tbold\14constants\tbold\fstrings\tbold\nsetup\17github-theme\frequire\0" },
     loaded = true,
     path = "/Users/vg/.local/share/nvim/site/pack/packer/start/github-nvim-theme",
     url = "https://github.com/projekt0n/github-nvim-theme"
@@ -120,6 +120,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/vg/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
+  },
+  ["neoscroll.nvim"] = {
+    loaded = true,
+    path = "/Users/vg/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
+    url = "https://github.com/karb94/neoscroll.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -182,6 +187,11 @@ _G.packer_plugins = {
     path = "/Users/vg/.local/share/nvim/site/pack/packer/start/telescope-file-browser.nvim",
     url = "https://github.com/nvim-telescope/telescope-file-browser.nvim"
   },
+  ["telescope-recent-files"] = {
+    loaded = true,
+    path = "/Users/vg/.local/share/nvim/site/pack/packer/start/telescope-recent-files",
+    url = "https://github.com/smartpde/telescope-recent-files"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/Users/vg/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -191,22 +201,27 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/vg/.local/share/nvim/site/pack/packer/start/typescript.nvim",
     url = "https://github.com/jose-elias-alvarez/typescript.nvim"
+  },
+  ["vim-fugitive"] = {
+    loaded = true,
+    path = "/Users/vg/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
   }
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: everforest-nvim
-time([[Config for everforest-nvim]], true)
-try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15everforest\frequire\0", "config", "everforest-nvim")
-time([[Config for everforest-nvim]], false)
 -- Config for: github-nvim-theme
 time([[Config for github-nvim-theme]], true)
-try_loadstring("\27LJ\2\nõ\1\0\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\4\0005\4\3\0=\4\5\3=\3\a\2B\0\2\1K\0\1\0\foptions\1\0\0\vstyles\1\0\0\1\0\n\14constants\tbold\fstrings\tbold\14operators\tbold\fnumbers\tbold\17conditionals\tbold\14variables\tbold\rkeywords\tbold\14functions\tbold\rcomments\tbold\ntypes\tbold\nsetup\17github-theme\frequire\0", "config", "github-nvim-theme")
+try_loadstring("\27LJ\2\nõ\1\0\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\6\0005\3\4\0005\4\3\0=\4\5\3=\3\a\2B\0\2\1K\0\1\0\foptions\1\0\0\vstyles\1\0\0\1\0\n\14operators\tbold\fnumbers\tbold\17conditionals\tbold\14variables\tbold\rkeywords\tbold\14functions\tbold\ntypes\tbold\rcomments\tbold\14constants\tbold\fstrings\tbold\nsetup\17github-theme\frequire\0", "config", "github-nvim-theme")
 time([[Config for github-nvim-theme]], false)
 -- Config for: nvim-autopairs
 time([[Config for nvim-autopairs]], true)
 try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
 time([[Config for nvim-autopairs]], false)
+-- Config for: everforest-nvim
+time([[Config for everforest-nvim]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15everforest\frequire\0", "config", "everforest-nvim")
+time([[Config for everforest-nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
