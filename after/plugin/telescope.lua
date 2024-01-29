@@ -18,7 +18,7 @@ telescope.setup {
         layout_config = {
             horizontal = {
                 height = 0.77,
-                width = 0.64,
+                width = 0.90,
                 preview_cutoff = 140,
                 prompt_position = "bottom"
             }
@@ -31,7 +31,7 @@ telescope.setup {
             layout_config = {
                 horizontal = {
 									height = 0.77,
-									width = 0.64,
+									width = 0.90,
 									preview_cutoff = 120,
                 }
             }
@@ -62,8 +62,9 @@ telescope.setup {
 
 builtin = require('telescope.builtin')
 
-telescope.load_extension("file_browser")
+-- telescope.load_extension("file_browser")
 telescope.load_extension("recent_files")
+
 
 vim.keymap.set('n', 'ff', function()
     builtin.find_files()

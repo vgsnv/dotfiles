@@ -18,6 +18,8 @@ return require('packer').startup(function(use)
 
     use {"tpope/vim-fugitive"}
 
+    use 'NvChad/nvim-colorizer.lua'
+
     -- theme
     use {
         'rose-pine/neovim',

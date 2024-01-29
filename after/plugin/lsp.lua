@@ -90,6 +90,11 @@ cmp.setup({
         completeopt = "menu,menuone"
     },
 
+    window = {
+        completion = cmp.config.window.bordered(),
+        -- documentation = cmp.config.window.bordered(),
+      },
+
     mapping = {
         -- `Enter` key to confirm completion
         ['<CR>'] = cmp.mapping.confirm({
