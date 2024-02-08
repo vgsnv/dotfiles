@@ -15,10 +15,14 @@ return require('packer').startup(function(use)
     }
 
     use {"smartpde/telescope-recent-files"}
+	
 
     use {"tpope/vim-fugitive"}
 
     use 'NvChad/nvim-colorizer.lua'
+
+		use 'numToStr/Comment.nvim'
+		use 'JoosepAlviste/nvim-ts-context-commentstring'
 
     -- theme
     use {
