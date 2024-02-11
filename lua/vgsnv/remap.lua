@@ -27,6 +27,10 @@ keymap.set("n", "<leader>re", ":TypescriptRemoveUnused<CR> <BAR> :TypescriptOrga
 keymap.set('i', ';re', '<esc>:TypescriptRemoveUnused<CR> <BAR> :TypescriptOrganizeImports<CR>')
 keymap.set('n', ';re', ':TypescriptRemoveUnused<CR> <BAR> :TypescriptOrganizeImports<CR>')
 
+keymap.set('n', '<Space>e', ':NvimTreeToggle<CR>')
+
+
+
 -- Select all
 keymap.set('n', '<C-a>', 'gg<S-v>G')
 
