@@ -1,16 +1,18 @@
+vim.g.mapleader = ";"
+
 local keymap = vim.keymap
 
-vim.g.mapleader = ";"
+-- Перейти в нормальный режим
+keymap.set('i', 'jk', '<Esc>', {
+    desc = "Exit insert mode with jk"
+})
+
 keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 keymap.set("n", "s", '<nop>')
 
 -- Удалить слово
 keymap.set('n', 'dw', 'daw')
-
--- Перейти в нормальный режим
-keymap.set('i', 'jj', '<Esc>')
-keymap.set('i', 'kk', '<Esc>')
 
 -- Сохранить
 keymap.set('i', '<leader>w', '<esc>:wa<cr>')
@@ -27,6 +29,8 @@ keymap.set('n', '<C-a>', 'gg<S-v>G')
 -- Split window
 -- keymap.set('n', '<leader>ss', ':split<Return><C-w>w')
 keymap.set('n', 'ss', ':vsplit<Return><C-w>w')
+keymap.set("n", "<leader>ss", ':vsplit<Return><C-w>w', { desc = "Split window vertically" }) 
+keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
 
 -- Move window
 keymap.set('', '<C-h>', '<C-w>h')

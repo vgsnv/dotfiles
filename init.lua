@@ -1,1 +1,2 @@
-require('vgsnv')
+require("vgsnv.core")
+require("vgsnv.lazy")
