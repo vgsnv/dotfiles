@@ -1,44 +1,60 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
--- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-    -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
-
-    use 'nvim-lualine/lualine.nvim' -- Statusline
+    use "wbthomason/packer.nvim"
+    use "nvim-lualine/lualine.nvim"
+    use "karb94/neoscroll.nvim"
+    use "echasnovski/mini.animate"
+    use "norcalli/nvim-colorizer.lua"
+    use "nvim-lua/plenary.nvim"
+    use "windwp/nvim-autopairs"
+    use 'nvim-tree/nvim-web-devicons'
+    use "tpope/vim-fugitive"
 
     use {
-        'nvim-telescope/telescope.nvim',
-        -- or                            , branch = '0.1.x',
-        requires = {{'nvim-lua/plenary.nvim'}}
+        "folke/noice.nvim",
+        requires = {"MunifTanjim/nui.nvim", "rcarriga/nvim-notify"}
     }
 
-    use {"smartpde/telescope-recent-files"}
-	
+    use({
+        "nvim-treesitter/nvim-treesitter",
+        run = ":TSUpdate"
+    })
 
-    use {"tpope/vim-fugitive"}
+    use {
+        "nvim-telescope/telescope.nvim",
+        tag = '0.1.6'
+    }
 
-    use 'NvChad/nvim-colorizer.lua'
+    use "nvim-telescope/telescope-file-browser.nvim"
 
-		use 'numToStr/Comment.nvim'
-		use 'JoosepAlviste/nvim-ts-context-commentstring'
+    use "numToStr/Comment.nvim"
+
+    use "JoosepAlviste/nvim-ts-context-commentstring"
+
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v3.x',
+        requires = {{'neovim/nvim-lspconfig'}, {'hrsh7th/nvim-cmp'}, {'hrsh7th/cmp-nvim-lsp'}, {'L3MON4D3/LuaSnip'},
+                    {'hrsh7th/cmp-buffer'}, {'hrsh7th/cmp-path'}, {'onsails/lspkind.nvim'}}
+    }
+
+    -- React
+    use "mfussenegger/nvim-lint"
+    use "stevearc/conform.nvim"
 
     -- theme
-    use {
-        'rose-pine/neovim',
-        as = 'rose-pine'
-    }
-
-		use 'karb94/neoscroll.nvim'
-
     use {
         "catppuccin/nvim",
         as = "catppuccin"
     }
+    use {
+        "rose-pine/neovim",
+        as = 'rose-pine'
+    }
 
     use({
-        'projekt0n/github-nvim-theme',
+        "projekt0n/github-nvim-theme",
         config = function()
             require('github-theme').setup({
                 options = {
@@ -59,62 +75,5 @@ return require('packer').startup(function(use)
 
         end
     })
-
-    use({
-        "neanias/everforest-nvim",
-        -- Optional; default configuration will be used if setup isn't called.
-        config = function()
-            require("everforest").setup()
-        end
-    })
-    -----------
-
-    use({
-        "nvim-treesitter/nvim-treesitter",
-        tag = 'v0.8.5.2',
-        run = ":TSUpdate"
-    })
-
-    use {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v2.x',
-        requires = { -- LSP Support
-        {'neovim/nvim-lspconfig'}, -- Required
-        { -- Optional
-            'williamboman/mason.nvim',
-            run = function()
-                pcall(vim.cmd, 'MasonUpdate')
-            end
-        }, {'williamboman/mason-lspconfig.nvim'}, -- Optional
-        -- Autocompletion
-        {'hrsh7th/nvim-cmp'}, -- Required
-        {'hrsh7th/cmp-nvim-lsp'}, -- Required
-        {'L3MON4D3/LuaSnip'} -- Required
-        }
-    }
-
-    use {
-        "nvim-telescope/telescope-file-browser.nvim",
-        requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"}
-    }
-
-    use {
-        "windwp/nvim-autopairs",
-        config = function()
-            require("nvim-autopairs").setup {}
-        end
-    }
-
-    use 'jose-elias-alvarez/typescript.nvim'
-
-    use 'windwp/nvim-ts-autotag'
-
-    use('neovim/nvim-lspconfig')
-    use('jose-elias-alvarez/null-ls.nvim')
-    use('MunifTanjim/prettier.nvim')
-
-    use 'nvim-tree/nvim-web-devicons'
-
-    use 'nvim-tree/nvim-tree.lua'
 
 end)

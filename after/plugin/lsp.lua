@@ -1,86 +1,102 @@
-local lsp = require('lsp-zero').preset({})
+local lsp_zero = require('lsp-zero')
+local builtin = require('telescope.builtin')
 
-lsp.on_attach(function(client, bufnr)
-    lsp.default_keymaps({
+local status, telescope = pcall(require, "telescope")
+if (not status) then
+    return
+end
+
+lsp_zero.on_attach(function(client, bufnr)
+    lsp_zero.default_keymaps({
         buffer = bufnr
     })
-end)
 
--- (Optional) Configure lua language server for neovim
-require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-
-lsp.format_on_save({
-    format_opts = {
-        async = false,
-        timeout_ms = 10000
-    },
-    servers = {
-        ['null-ls'] = {'javascript', 'typescript', 'typescriptreact', 'lua'}
-    }
-})
-
-lsp.on_attach(function(client, bufnr)
     local opts = {
         buffer = bufnr,
-        remap = false
+        silent = true
     }
 
-    -- vim.keymap.set("n", "gd", function()
-    --     vim.lsp.buf.definition()
-    -- end, opts)
-    vim.keymap.set("n", "K", function()
-        vim.lsp.buf.hover()
-    end, opts)
-    vim.keymap.set("n", "<leader>vws", function()
-        vim.lsp.buf.workspace_symbol()
-    end, opts)
-    vim.keymap.set("n", "<leader>vd", function()
-        vim.diagnostic.open_float()
-    end, opts)
-    vim.keymap.set("n", "[d", function()
-        vim.diagnostic.goto_next()
-    end, opts)
-    vim.keymap.set("n", "]d", function()
-        vim.diagnostic.goto_prev()
-    end, opts)
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    opts.desc = "Show documentation for what is under cursor"
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
-    vim.keymap.set("n", "<leader>ca", function()
-        vim.lsp.buf.code_action()
-    end, opts)
-    vim.keymap.set("n", "<leader>vrr", function()
-        vim.lsp.buf.references()
-    end, opts)
-    vim.keymap.set("n", "<leader>vrn", function()
-        vim.lsp.buf.rename()
-    end, opts)
-    vim.keymap.set("i", "<C-h>", function()
-        vim.lsp.buf.signature_help()
-    end, opts)
+    opts.desc = "See available code actions"
+    vim.keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+
+    vim.keymap.set('n', '<leader>ct', function()
+        builtin.colorscheme()
+    end, {
+        buffer = bufnr
+    })
+
+    vim.keymap.set('n', 'gd', function()
+        builtin.lsp_implementations()
+    end)
+
+    vim.keymap.set('n', 'gh', function()
+        builtin.lsp_references()
+    end)
+
+
+    vim.keymap.set('n', 'gm', function()
+        builtin.lsp_document_symbols({
+            preview = false,
+            initial_mode = "normal",
+            show_line = true
+        })
+    end, {
+        buffer = bufnr
+    })
+
+    vim.keymap.set('n', 'fe', function()
+        builtin.find_files({
+            path = '%:p:h',
+            sorting_strategy = "ascending",
+            layout_config = {
+                horizontal = {
+                    width = 80,
+                    height = 16
+                }
+            }
+        })
+    end)
+
+    vim.keymap.set('n', '<leader>er', function()
+        builtin.live_grep({
+            only_cwd = true,
+            preview = true
+        })
+    end)
+
+    vim.keymap.set('n', 'gt', function()
+        builtin.git_status({
+            show_untracked = true,
+            only_cwd = true,
+            preview = true,
+            path_display = {"tail"},
+            horizontal = {
+                height = 0.77,
+                width = 0.90,
+                prompt_position = "bottom"
+            }
+        })
+    end)
+
 end)
 
-lsp.setup()
-
-local null_ls = require("null-ls")
-
-local group = vim.api.nvim_create_augroup("lsp_format_on_save", {
-    clear = false
-})
-local event = "BufWritePre" -- or "BufWritePost"
-local async = event == "BufWritePost"
-
-null_ls.setup({
-    sources = { 
-    null_ls.builtins.formatting.prettierd,
-    null_ls.builtins.formatting.stylua,
-    require("typescript.extensions.null-ls.code-actions")}
-})
+require'lspconfig'.tsserver.setup {
+    filetypes = {"javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx"}
+}
 
 local cmp = require('cmp')
-local cmp_action = require('lsp-zero').cmp_action()
 
 cmp.setup({
+    sources = {{
+        name = 'nvim_lsp'
+    }},
+
     confirm = {
         select = true
     },
@@ -91,21 +107,26 @@ cmp.setup({
     },
 
     window = {
-        completion = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered()
         -- documentation = cmp.config.window.bordered(),
-      },
-
+    },
     mapping = {
-        -- `Enter` key to confirm completion
         ['<CR>'] = cmp.mapping.confirm({
             select = false
         }),
+        ['<C-k>'] = cmp.mapping.select_prev_item({
+            behavior = 'select'
+        }),
+        ['<C-j>'] = cmp.mapping.select_next_item({
+            behavior = 'select'
+        }),
 
-        -- Ctrl+Space to trigger completion menu
-        ['<C-.>'] = cmp.mapping.complete(),
-
-        -- Navigate between snippet placeholder
-        ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-        ['<C-b>'] = cmp_action.luasnip_jump_backward()
+        ['<C-.>'] = cmp.mapping.complete()
+    },
+    formatting = {
+        format = require('lspkind').cmp_format({
+            maxwidth = 50,
+            ellipsis_char = "..."
+        })
     }
 })

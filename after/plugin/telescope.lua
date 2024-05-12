@@ -2,122 +2,99 @@ local status, telescope = pcall(require, "telescope")
 if (not status) then
     return
 end
-local actions = require('telescope.actions')
-local builtin = require("telescope.builtin")
+
+local builtin = require('telescope.builtin')
 
 local function telescope_buffer_dir()
     return vim.fn.expand('%:p:h')
 end
 
-local fb_actions = require"telescope".extensions.file_browser.actions
-
 telescope.setup {
     defaults = {
-        preview = false,
         file_ignore_patterns = {"node_modules"},
+        preview = false,
         layout_config = {
-            horizontal = {
-                height = 0.77,
-                width = 0.90,
-                preview_cutoff = 140,
-                prompt_position = "bottom"
-            }
+            height = 0.5,
+            preview_width = 0.6,
+            width = 0.9
         }
     },
 
     pickers = {
+        colorscheme = {
+            enable_preview = true
+        },
+        lsp_implementations = {
+            initial_mode = "normal",
+            preview = false,
+            show_line = false,
+            theme = 'cursor'
+        },
         lsp_references = {
+            initial_mode = "normal",
+            path_display = {"tail"},
             preview = true,
+            show_line = true,
+            sorting_strategy = "ascending",
+            theme = 'cursor',
             layout_config = {
-                horizontal = {
-									height = 0.77,
-									width = 0.90,
-									preview_cutoff = 120,
-                }
+                prompt_position = "top"
+            }
+
+        },
+        oldfiles = {
+            initial_mode = "normal",
+            theme = 'cursor',
+            only_cwd = true,
+            path_display = {"tail"},
+            preview = false,
+            layout_config = {
+                width = 40,
+                height = 12
             }
         }
     },
 
     extensions = {
         file_browser = {
-            theme = "dropdown",
-            hijack_netrw = true,
-            mappings = {
-                ["i"] = {
-                    ["<C-w>"] = function()
-                        vim.cmd('normal vbd')
-                    end
-                },
-                ["n"] = {
-                    ["N"] = fb_actions.create,
-                    ["h"] = fb_actions.goto_parent_dir,
-                    ["/"] = function()
-                        vim.cmd('startinsert')
-                    end
-                }
-            }
+            display_stat = false
+        },
+        recent_files = {
+            initial_mode = "normal",
+            theme = 'cursor',
+            only_cwd = true,
+            path_display = {"tail"},
+            preview = false
         }
     }
+
 }
 
-builtin = require('telescope.builtin')
-
--- telescope.load_extension("file_browser")
-telescope.load_extension("recent_files")
-
-
-vim.keymap.set('n', 'ff', function()
-    builtin.find_files()
+vim.keymap.set('n', '<C-e>', function()
+    builtin.oldfiles()
 end)
 
-vim.keymap.set('n', ';r', function()
-    builtin.live_grep({
-        only_cwd = true,
-        preview = true,
-        layout_config = {
-            horizontal = {
-                height = 0.77,
-                width = 0.64,
-                prompt_position = "bottom",
-            }
-        }
-    })
-end)
-
-vim.keymap.set("n", "<C-e>", function()
-    telescope.extensions.recent_files.pick({
-        noremap = true,
-        silent = true,
-        only_cwd = true
-    })
-end)
-
-vim.keymap.set('n', 'gd', function()
-    builtin.lsp_references({
-        initial_mode = "normal",
-        show_line = false
-    })
-end)
-
-vim.keymap.set('n', 'gr', function()
-    builtin.treesitter({
-        initial_mode = "normal",
-        show_line = false
-    })
-end)
 
 vim.keymap.set("n", "sf", function()
     telescope.extensions.file_browser.file_browser({
-        path = "%:p:h",
+        path = '%:p:h',
+        grouped = true,
+        theme = "dropdown",
+        hijack_netrw = true,
+        path_display = {"tail"},
+        sorting_strategy = "ascending",
         cwd = telescope_buffer_dir(),
         respect_gitignore = false,
         hidden = true,
-        grouped = true,
         previewer = false,
         initial_mode = "normal",
-
         layout_config = {
-            height = 40
+            horizontal = {
+                width = 80,
+                height = 16
+            }
         }
     })
 end)
+
+telescope.load_extension("file_browser")
