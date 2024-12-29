@@ -6,6 +6,12 @@ local keymap = vim.keymap
 keymap.set('i', 'jk', '<Esc>', {
     desc = "Exit insert mode with jk"
 })
+keymap.set('i', 'jj', '<Esc>', {
+    desc = "Exit insert mode with jk"
+})
+keymap.set('i', 'kk', '<Esc>', {
+    desc = "Exit insert mode with jk"
+})
 
 keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
@@ -44,6 +50,5 @@ keymap.set('n', '<C-w><right>', '<C-w>>')
 keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
-keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>')
 
 -- nnoremap <silent> <leader>gg :LazyGit<CR>

@@ -10,6 +10,9 @@ return {
     -- import lspconfig plugin
     local lspconfig = require("lspconfig")
 
+
+  
+
     -- import mason_lspconfig plugin
     local mason_lspconfig = require("mason-lspconfig")
 
@@ -17,6 +20,20 @@ return {
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
     local keymap = vim.keymap -- for conciseness
+
+    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+      group = vim.api.nvim_create_augroup("ts_imports", { clear = true }),
+      pattern = { "typescript" },
+      callback = function()
+        vim.lsp.buf.code_action({
+          apply = true,
+          context = {
+            only = { "source.removeUnused.ts" },
+            diagnostics = {},
+          },
+        })
+      end,
+    })
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -28,6 +45,9 @@ return {
         -- set keybinds
         opts.desc = "Show LSP references"
         keymap.set("n", "gh", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+
+        opts.desc = "Remove unused imports"
+        keymap.set("n", "rui", ":TypescriptRemoveUnused<CR>", opts) -- show lsp definitions
 
         -- opts.desc = "Go to declaration"
         -- keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
@@ -62,8 +82,8 @@ return {
         opts.desc = "Show documentation for what is under cursor"
         keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
-        -- opts.desc = "Restart LSP"
-        -- keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+        opts.desc = "Restart LSP"
+        keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
       end,
     })
 
@@ -88,3 +108,6 @@ return {
     })
   end,
 }
+
+
+
