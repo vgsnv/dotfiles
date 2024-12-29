@@ -1,2 +1,2 @@
-require('vgsnv')
-print("INIT")
+require("vgsnv.core")
+require("vgsnv.lazy")
