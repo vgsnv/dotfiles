@@ -1,50 +1,50 @@
 return {
-  "goolord/alpha-nvim",
-  event = "VimEnter",
-  config = function()
-    local alpha = require("alpha")
-    local dashboard = require("alpha.themes.dashboard")
+	"goolord/alpha-nvim",
+	event = "VimEnter",
+	config = function()
+		local alpha = require("alpha")
+		local dashboard = require("alpha.themes.dashboard")
 
-    -- Set header
-    dashboard.section.header.val = {
-      "                                                     ",
-      "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-      "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-      "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-      "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-      "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-      "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-      "                                                     ",
-    }
+		-- Set header
+		dashboard.section.header.val = {
+			"                                                     ",
+			"  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
+			"  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
+			"  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
+			"  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
+			"  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
+			"  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
+			"                                                     ",
+		}
 
-    -- Set menu
-    dashboard.section.buttons.val = {
-      dashboard.button("ss", "Split window"),
-      dashboard.button("sx", "Close split window"),
+		-- Set menu
+		dashboard.section.buttons.val = {
+			dashboard.button("ss", "Split window"),
+			dashboard.button("sx", "Close split window"),
 
-      dashboard.button("gh", "Show references"),
-      dashboard.button("gd", "Show definitions"),
-      dashboard.button("gi", "Show implementations"),
+			dashboard.button("gh", "Show references"),
+			dashboard.button("gd", "Show definitions"),
+			dashboard.button("gi", "Show implementations"),
 
-      dashboard.button(";ri", "Remove Unused imports"),
-      dashboard.button(";rt", "treesitter"),
-      dashboard.button(";rn", "Smart rename"),
-      dashboard.button(";ca", "See available code actions"),
+			dashboard.button(";ri", "Remove Unused imports"),
+			dashboard.button(";rt", "treesitter"),
+			dashboard.button(";rn", "Smart rename"),
+			dashboard.button(";ca", "See available code actions"),
 
-      dashboard.button("sf", "Show filebrowser"),
-      dashboard.button("sb", "NvimTreeToggle"),
-      dashboard.button(";ff", "Show find files"),
-      dashboard.button("c-e", "oldfiles"),
-      dashboard.button(";fs", "live_grep"),
-      dashboard.button(";fc", "grep_string"),
+			dashboard.button("sf", "Show filebrowser"),
+			dashboard.button(";b", "NvimTreeToggle"),
+			dashboard.button(";ff", "Show find files"),
+			dashboard.button("c-e", "oldfiles"),
+			dashboard.button("sg", "live_grep"),
+			dashboard.button("sc", "grep_string"),
 
-      dashboard.button(";ct", "colorscheme"),
-    }
+			dashboard.button(";ct", "colorscheme"),
+		}
 
-    -- Send config to alpha
-    alpha.setup(dashboard.opts)
+		-- Send config to alpha
+		alpha.setup(dashboard.opts)
 
-    -- Disable folding on alpha buffer
-    vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
-  end,
+		-- Disable folding on alpha buffer
+		vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
+	end,
 }
