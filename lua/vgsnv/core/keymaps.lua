@@ -33,10 +33,8 @@ keymap.set('n', '<leader>qo', ':waq<cr>')
 keymap.set('n', '<C-a>', 'gg<S-v>G')
 
 -- Split window
--- keymap.set('n', '<leader>ss', ':split<Return><C-w>w')
-keymap.set('n', 'ss', ':vsplit<Return><C-w>w')
-keymap.set("n", "<leader>ss", ':vsplit<Return><C-w>w', { desc = "Split window vertically" }) 
-keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
+keymap.set('n', 'ss', ':vsplit<Return><C-w>w',  { desc = "Split window vertically" })
+keymap.set("n", "sx", "<cmd>close<CR>", { desc = "Close current split" })
 
 -- Move window
 keymap.set('', '<C-h>', '<C-w>h')
