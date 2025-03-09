@@ -100,7 +100,7 @@ return {
                 layout_config = {
                     horizontal = {
                         width = 80,
-                        height = 16
+                        height = 26
                     }
                 }
             })
@@ -117,6 +117,10 @@ return {
         keymap.set("n", "<C-e>", "<cmd>Telescope oldfiles<cr>", {
             desc = "Fuzzy find recent files"
         })
+        keymap.set("n", "<leader>fl", "<cmd>Telescope loclist<cr>", {
+            desc = "Fuzzy find recent files"
+        })
+
         keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", {
             desc = "Find string in cwd"
         })

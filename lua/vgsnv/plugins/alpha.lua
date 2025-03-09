@@ -19,12 +19,20 @@ return {
 
     -- Set menu
     dashboard.section.buttons.val = {
-      dashboard.button("e", "  > New File", "<cmd>ene<CR>"),
-      dashboard.button("SPC ee", "  > Toggle file explorer", "<cmd>NvimTreeToggle<CR>"),
-      dashboard.button("SPC ff", "󰱼  > Find File", "<cmd>Telescope find_files<CR>"),
-      dashboard.button("SPC fs", "  > Find Word", "<cmd>Telescope live_grep<CR>"),
-      dashboard.button("SPC wr", "󰁯  > Restore Session For Current Directory", "<cmd>SessionRestore<CR>"),
-      dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
+      dashboard.button(";ss", "Split window"),
+      dashboard.button(";sx", "Close split window"),
+      dashboard.button("gh", "Show references"),
+      dashboard.button("gd", "Show definitions"),
+      dashboard.button("gi", "Show implementations"),
+      dashboard.button("rui", "Remove Unused imports"),
+      dashboard.button(";rn", "Smart rename"),
+      dashboard.button(";ca", "See available code actions"),
+      dashboard.button("sf", "Show filebrowser"),
+      dashboard.button(";ff", "Show find files"),
+      dashboard.button("c-e", "oldfiles"),
+      dashboard.button(";fs", "live_grep"),
+      dashboard.button(";fc", "grep_string"),
+      dashboard.button(";ct", "colorscheme"),
     }
 
     -- Send config to alpha
