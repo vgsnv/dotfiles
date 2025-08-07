@@ -76,12 +76,13 @@ return {
 
 				opts.desc = "Remove unused imports"
 				-- keymap.set("n", "<leader>rui", "<cml>source.removeUnused.ts<CR>", opts) -- show lsp definitions
-				keymap.set("n", "<leader>ri", ":OrganizeImports<CR>", opts) -- show lsp definitions
+				-- keymap.set("n", "<leader>ri", ":OrganizeImports<CR>", opts) -- show lsp definitions
+				keymap.set("n", "<leader>ri", "", opts) -- show lsp definitions
 				-- keymap.set("n", "rui", ":OrganizeImports<CR>", opts) -- show lsp definitions
 				-- keymap.set("n", "rui", "<cmd><CR>", opts) -- show lsp definitions
 
 				opts.desc = "Remove unused imports"
-				keymap.set("n", "rt", "<cmd>Telescope treesitter<CR>", opts) -- show lsp definitions
+				keymap.set("n", "<leader>rt", "<cmd>Telescope treesitter<CR>", opts) -- show lsp definitions
 
 				opts.desc = "Show buffer diagnostics"
 				keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
@@ -106,50 +107,61 @@ return {
 		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
-		-- Change the Diagnostic symbols in the sign column (gutter)
-		-- (not in youtube nvim video)
-		local signs = {
-			Error = " ",
-			Warn = " ",
-			Hint = "󰠠 ",
-			Info = " ",
-		}
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, {
-				text = icon,
-				texthl = hl,
-				numhl = "",
-			})
+		local function organize_imports()
+			local params = {
+				command = "_typescript.organizeImports",
+				arguments = { vim.api.nvim_buf_get_name(0) },
+				title = "",
+			}
+			vim.lsp.buf.execute_command(params)
 		end
 
-		mason_lspconfig.setup({ -- default handler for installed servers
-			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-				})
-			end,
-
-			["ts_ls"] = function()
-				local function organize_imports()
-					local params = {
-						command = "_typescript.organizeImports",
-						arguments = { vim.api.nvim_buf_get_name(0) },
-						title = "",
-					}
-					vim.lsp.buf.execute_command(params)
-				end
-				-- configure emmet language server
-				lspconfig["ts_ls"].setup({
-					capabilities = capabilities,
-					commands = {
-						OrganizeImports = {
-							organize_imports,
-							description = "Organize Imports",
-						},
-					},
-				})
-			end,
+		vim.diagnostic.config({
+			signs = {
+				text = {
+					[vim.diagnostic.severity.ERROR] = " ",
+					[vim.diagnostic.severity.WARN] = " ",
+					[vim.diagnostic.severity.HINT] = "󰠠 ",
+					[vim.diagnostic.severity.INFO] = " ",
+				},
+			},
 		})
+
+		-- mason_lspconfig.config("ts_ls", {
+		-- 	-- Server-specific settings. See `:help lsp-quickstart`
+		-- 	settings = {
+		-- 		["ts_ls"] = {
+		-- 			capabilities = capabilities,
+		-- 			commands = {
+		-- 				OrganizeImports = {
+		-- 					organize_imports,
+		-- 					description = "Organize Imports",
+		-- 				},
+		-- 			},
+		-- 		},
+		-- 	},
+		-- })
+
+		-- mason_lspconfig.setup({ -- default handler for installed servers
+		--
+		-- 	function(server_name)
+		-- 		lspconfig[server_name].setup({
+		-- 			capabilities = capabilities,
+		-- 		})
+		-- 	end,
+		--
+		-- 	["ts_ls"] = function()
+		-- 		-- configure emmet language server
+		-- 		lspconfig["ts_ls"].setup({
+		-- 			capabilities = capabilities,
+		-- 			commands = {
+		-- 				OrganizeImports = {
+		-- 					organize_imports,
+		-- 					description = "Organize Imports",
+		-- 				},
+		-- 			},
+		-- 		})
+		-- 	end,
+		-- })
 	end,
 }

@@ -23,7 +23,8 @@ opt.showcmd = true
 opt.cmdheight = 1
 opt.laststatus = 2
 opt.scrolloff = 10
-opt.shell = 'fish'
+-- opt.shell = 'fish'
+
 opt.backupskip = {'/tmp/*', '/private/tmp/*'}
 opt.inccommand = 'split'
 opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
