@@ -29,24 +29,9 @@ return {
 			silent = true,
 		}
 
-		vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-			group = vim.api.nvim_create_augroup("ts_imports", {
-				clear = true,
-			}),
-			pattern = { "typescript" },
-			callback = function()
-				vim.lsp.buf.code_action({
-					apply = true,
-					context = {
-						only = { "source.removeUnused.ts" },
-						diagnostics = {},
-					},
-				})
-			end,
-		})
-
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+
 			callback = function(ev)
 				-- Buffer local mappings.
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -54,6 +39,20 @@ return {
 					buffer = ev.buf,
 					silent = true,
 				}
+
+				vim.api.nvim_buf_create_user_command(ev.buf, "OrganizeImports", function()
+					local params = {
+						command = "_typescript.organizeImports",
+						arguments = { vim.api.nvim_buf_get_name(0) },
+					}
+
+					local result = vim.lsp.buf_request_sync(0, "workspace/executeCommand", params, 1000)
+					if not result then
+						vim.notify("Organizing imports failed")
+					end
+				end, {})
+
+				vim.keymap.set("n", "<leader>o", "<cmd>OrganizeImports<CR>", { desc = "Organize imports" })
 
 				-- set keybinds
 				opts.desc = "Show LSP references"
@@ -76,13 +75,14 @@ return {
 
 				opts.desc = "Remove unused imports"
 				-- keymap.set("n", "<leader>rui", "<cml>source.removeUnused.ts<CR>", opts) -- show lsp definitions
-				-- keymap.set("n", "<leader>ri", ":OrganizeImports<CR>", opts) -- show lsp definitions
-				keymap.set("n", "<leader>ri", "", opts) -- show lsp definitions
-				-- keymap.set("n", "rui", ":OrganizeImports<CR>", opts) -- show lsp definitions
+				-- keymap.set("n", "<leader>ri", ":LspTypescriptSourceAction<CR>", opts) -- show lsp definitions
+				-- keymap.set("n", "<leader>ri", vim.lsp.buf.rename, opts) -- smart rename
+				-- keymap.set("n", "<leader>ri", "<cmd>RemoveUnusedImports<CR>", opts) -- show lsp definitions
+				keymap.set("n", "<leader>ri", ":OrganizeImports<CR>", opts) -- show lsp definitions
 				-- keymap.set("n", "rui", "<cmd><CR>", opts) -- show lsp definitions
 
-				opts.desc = "Remove unused imports"
-				keymap.set("n", "<leader>rt", "<cmd>Telescope treesitter<CR>", opts) -- show lsp definitions
+				opts.desc = "Telescope treesitter"
+				keymap.set("n", "rt", "<cmd>Telescope treesitter<CR>", opts) -- show lsp definitions
 
 				opts.desc = "Show buffer diagnostics"
 				keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
@@ -107,15 +107,6 @@ return {
 		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
-		local function organize_imports()
-			local params = {
-				command = "_typescript.organizeImports",
-				arguments = { vim.api.nvim_buf_get_name(0) },
-				title = "",
-			}
-			vim.lsp.buf.execute_command(params)
-		end
-
 		vim.diagnostic.config({
 			signs = {
 				text = {
@@ -127,41 +118,41 @@ return {
 			},
 		})
 
-		-- mason_lspconfig.config("ts_ls", {
-		-- 	-- Server-specific settings. See `:help lsp-quickstart`
-		-- 	settings = {
-		-- 		["ts_ls"] = {
-		-- 			capabilities = capabilities,
-		-- 			commands = {
-		-- 				OrganizeImports = {
-		-- 					organize_imports,
-		-- 					description = "Organize Imports",
-		-- 				},
-		-- 			},
-		-- 		},
-		-- 	},
-		-- })
+		vim.lsp.config("*", {
+			capabilities = capabilities,
+		})
 
-		-- mason_lspconfig.setup({ -- default handler for installed servers
-		--
-		-- 	function(server_name)
-		-- 		lspconfig[server_name].setup({
-		-- 			capabilities = capabilities,
-		-- 		})
-		-- 	end,
-		--
-		-- 	["ts_ls"] = function()
-		-- 		-- configure emmet language server
-		-- 		lspconfig["ts_ls"].setup({
-		-- 			capabilities = capabilities,
-		-- 			commands = {
-		-- 				OrganizeImports = {
-		-- 					organize_imports,
-		-- 					description = "Organize Imports",
-		-- 				},
-		-- 			},
-		-- 		})
-		-- 	end,
-		-- })
+		mason_lspconfig.setup({ -- default handler for installed servers
+
+			handlers = {
+
+				function(server_name)
+					lspconfig[server_name].setup({
+						capabilities = capabilities,
+					})
+				end,
+
+				-- ["ts_ls"] = function()
+				-- 	local function organize_imports()
+				-- 		local params = {
+				-- 			command = "_typescript.organizeImports.ts",
+				-- 			arguments = { vim.api.nvim_buf_get_name(0) },
+				-- 			title = "",
+				-- 		}
+				-- 		vim.lsp.buf.execute_command(params)
+				-- 	end
+				-- 	-- configure emmet language server
+				-- 	lspconfig["ts_ls"].setup({
+				-- 		capabilities = capabilities,
+				-- 		commands = {
+				-- 			OrganizeImports = {
+				-- 				organize_imports,
+				-- 				description = "Organize Imports",
+				-- 			},
+				-- 		},
+				-- 	})
+				-- end,
+			},
+		})
 	end,
 }
