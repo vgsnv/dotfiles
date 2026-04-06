@@ -52,8 +52,6 @@ return {
 					end
 				end, {})
 
-				vim.keymap.set("n", "<leader>o", "<cmd>OrganizeImports<CR>", { desc = "Organize imports" })
-
 				-- set keybinds
 				opts.desc = "Show LSP references"
 				keymap.set("n", "gh", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
@@ -74,12 +72,7 @@ return {
 				keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
 
 				opts.desc = "Remove unused imports"
-				-- keymap.set("n", "<leader>rui", "<cml>source.removeUnused.ts<CR>", opts) -- show lsp definitions
-				-- keymap.set("n", "<leader>ri", ":LspTypescriptSourceAction<CR>", opts) -- show lsp definitions
-				-- keymap.set("n", "<leader>ri", vim.lsp.buf.rename, opts) -- smart rename
-				-- keymap.set("n", "<leader>ri", "<cmd>RemoveUnusedImports<CR>", opts) -- show lsp definitions
 				keymap.set("n", "<leader>ri", ":OrganizeImports<CR>", opts) -- show lsp definitions
-				-- keymap.set("n", "rui", "<cmd><CR>", opts) -- show lsp definitions
 
 				opts.desc = "Telescope treesitter"
 				keymap.set("n", "rt", "<cmd>Telescope treesitter<CR>", opts) -- show lsp definitions
