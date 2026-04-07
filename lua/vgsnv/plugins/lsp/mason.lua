@@ -18,7 +18,7 @@ return {
             }
         });
         mason_lspconfig.setup({
-            ensure_installed = {"ts_ls", "html", "cssls", "lua_ls", "emmet_ls"}
+            ensure_installed = {"html", "cssls", "lua_ls", "emmet_ls"}
         });
         mason_tool_installer.setup({
             ensure_installed = {"prettier", "stylua", "eslint_d"}

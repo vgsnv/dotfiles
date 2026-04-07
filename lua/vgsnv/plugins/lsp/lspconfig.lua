@@ -16,19 +16,6 @@ return {
             group = vim.api.nvim_create_augroup("UserLspConfig", {}),
             callback = function(ev)
                 local opts = {buffer = ev.buf, silent = true};
-                vim.api.nvim_buf_create_user_command(ev.buf, "OrganizeImports",
-                                                     function()
-                    local params = {
-                        command = "_typescript.organizeImports",
-                        arguments = {vim.api.nvim_buf_get_name(0)}
-                    };
-                    local result = vim.lsp.buf_request_sync(0,
-                                                            "workspace/executeCommand",
-                                                            params, 1000);
-                    if not result then
-                        vim.notify("Organizing imports failed");
-                    end
-                end, {});
                 opts.desc = "Show LSP references";
                 keymap.set("n", "gh", "<cmd>Telescope lsp_references<CR>", opts);
                 opts.desc = "Show LSP definitions";
@@ -42,10 +29,6 @@ return {
                 opts.desc = "See available code actions";
                 keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action,
                            opts);
-                opts.desc = "Smart rename";
-                keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts);
-                opts.desc = "Remove unused imports";
-                keymap.set("n", "<leader>ri", ":OrganizeImports<CR>", opts);
                 opts.desc = "Telescope treesitter";
                 keymap.set("n", "rt", "<cmd>Telescope treesitter<CR>", opts);
                 opts.desc = "Show buffer diagnostics";
@@ -64,16 +47,6 @@ return {
             end
         });
         local capabilities = cmp_nvim_lsp.default_capabilities();
-        vim.diagnostic.config({
-            signs = {
-                text = {
-                    [vim.diagnostic.severity.ERROR] = "\61527 ",
-                    [vim.diagnostic.severity.WARN] = "\61553 ",
-                    [vim.diagnostic.severity.HINT] = "\985120 ",
-                    [vim.diagnostic.severity.INFO] = "\61530 "
-                }
-            }
-        });
         vim.lsp.config("*", {capabilities = capabilities});
         mason_lspconfig.setup({
             handlers = {
