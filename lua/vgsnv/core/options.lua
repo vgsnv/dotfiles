@@ -38,10 +38,7 @@ opt.path:append{'**'} -- Finding files - Search down into subfolders
 opt.wildignore:append{'*/node_modules/*'}
 
 -- Turn off paste mode when leaving insert
-api.nvim_create_autocmd("InsertLeave", {
-    pattern = '*',
-    command = "set nopaste"
-})
+api.nvim_create_autocmd("InsertLeave", {pattern = '*', command = "set nopaste"})
 -- Add asterisks in block comments
 opt.formatoptions:append{'r'}
 
